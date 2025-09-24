@@ -1,22 +1,21 @@
-"use strict"
+"use strict";
 // TODO: Crear las funciones, objetos y variables indicadas en el enunciado
 
 // TODO: Variable global
 let presupuesto = 0;
 
-function actualizarPresupuesto(presupuesto) {
-    if(presupuesto < 0){
-        console.log("Error: presupuesto negativo");
-        return -1;
-        /*isNaN(variable)*/
-    }
-    else{
+function actualizarPresupuesto(nuevopresupuesto) {
+    if (!isNaN(nuevopresupuesto) && nuevopresupuesto >= 0) {
+        presupuesto = nuevopresupuesto;
         return presupuesto;
+    } else {
+        console.log("Error: presupuesto no válido");
+        return -1;
     }
 }
 
 function mostrarPresupuesto() {
-    return("Tu presupuesto actual es de " + presupuesto +" €");
+    return `Tu presupuesto actual es de ${presupuesto} €`;
     
 }
 
