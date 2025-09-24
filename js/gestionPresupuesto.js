@@ -19,8 +19,14 @@ function mostrarPresupuesto() {
     
 }
 
-function CrearGasto() {
-    // TODO
+function CrearGasto(descripcion,valor) {
+    if (!isNaN(valor) && valor >= 0){
+
+    }
+}
+
+function mostrarGasto(){
+    console.log("Gasto correspondiente a ${descripcion} con valor ${valor} €")
 }
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
