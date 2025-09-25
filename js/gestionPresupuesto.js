@@ -27,9 +27,20 @@ function CrearGasto(descripcion,valor) {
     else{
         this.valor = 0;
     }
+
     this.mostrarGasto = function(){
     return`Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €`;
     }
+
+    this.actualizarDescripcion = function(descripcion){
+        
+    }
+    this.actualizarValor = function(valorNuevo){
+        if (!isNaN(valorNuevo) && valorNuevo >= 0){
+        this.valor= valorNuevoalor;
+        }
+    }
+
 }
 
 
