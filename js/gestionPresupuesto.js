@@ -20,14 +20,19 @@ function mostrarPresupuesto() {
 }
 
 function CrearGasto(descripcion,valor) {
+    this.descripcion = descripcion;
     if (!isNaN(valor) && valor >= 0){
-
+        this.valor= valor;
+    }
+    else{
+        this.valor = 0;
+    }
+    this.mostrarGasto = function(){
+    return`Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €`;
     }
 }
 
-function mostrarGasto(){
-    console.log("Gasto correspondiente a ${descripcion} con valor ${valor} €")
-}
+
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
