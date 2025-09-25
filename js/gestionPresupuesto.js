@@ -57,5 +57,6 @@ function listarGastos() {
 export   {
     mostrarPresupuesto,
     actualizarPresupuesto,
-    CrearGasto,      
+    CrearGasto, 
+    listarGastos     
 }
