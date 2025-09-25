@@ -33,11 +33,11 @@ function CrearGasto(descripcion,valor) {
     }
 
     this.actualizarDescripcion = function(descripcion){
-        
+        this.descripcion = descripcion;
     }
-    this.actualizarValor = function(valorNuevo){
-        if (!isNaN(valorNuevo) && valorNuevo >= 0){
-        this.valor= valorNuevoalor;
+    this.actualizarValor = function(valor){
+        if (!isNaN(valor) && valor >= 0){
+        this.valor= valor;
         }
     }
 
