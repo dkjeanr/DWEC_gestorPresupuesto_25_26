@@ -49,6 +49,9 @@ function listarGastos() {
     return gastos; 
 }
 
+function anyadirGasto(){
+    
+}
 
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
@@ -58,5 +61,6 @@ export   {
     mostrarPresupuesto,
     actualizarPresupuesto,
     CrearGasto, 
-    listarGastos     
+    listarGastos,
+    anyadirGasto     
 }
