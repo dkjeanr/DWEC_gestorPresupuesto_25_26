@@ -3,6 +3,7 @@
 
 // TODO: Variable global
 let presupuesto = 0;
+let gastos;
 
 function actualizarPresupuesto(nuevopresupuesto) {
     if (!isNaN(nuevopresupuesto) && nuevopresupuesto >= 0) {
