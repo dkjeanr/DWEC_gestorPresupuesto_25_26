@@ -139,8 +139,14 @@ function anyadirGasto(gasto){
     gastos.push(gasto);
 }
 
-function borrarGasto(){
+function borrarGasto(id){
+    let nuevosGastos = []; // array temporal para almacenar los gastos que no se borran
 
+    for (let i = 0; i < gastos.length; i++) {
+        if (gastos[i].id !== id) {
+            nuevosGastos.push(gastos[i]);
+        }
+    }
 }
 
 function calcularTotalGastos(){
@@ -148,6 +154,7 @@ function calcularTotalGastos(){
 }
 
 function calcularBalance(){
+    
 }
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
