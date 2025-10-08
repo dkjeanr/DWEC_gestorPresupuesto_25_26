@@ -193,8 +193,13 @@ function calcularBalance(){
 
 }
 
-function filtrarGastos(){
+function filtrarGastos(opciones){
     
+    let respuesta = .filter(function()){
+        return;
+    };
+
+
 }
 
 function agruparGastos(){
