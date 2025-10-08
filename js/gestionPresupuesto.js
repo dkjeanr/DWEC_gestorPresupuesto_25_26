@@ -75,9 +75,7 @@ function CrearGasto(descripcion,valor, fecha, ...etiquetas) {
             this.fecha = Date.now();
         }
     }
-
-    
-    
+ 
 
     this.mostrarGasto = function(){
         return `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €`;
@@ -125,9 +123,36 @@ function CrearGasto(descripcion,valor, fecha, ...etiquetas) {
         if (agregar) {
             nuevasEtiquetas.push(this.etiquetas[i]);
         }
-    }
+        }
     this.etiquetas = nuevasEtiquetas;
-}}
+    }
+    this.obtenerPeriodoAgrupacion = function(periodo) {
+        let fechaObj = new Date(this.fecha);
+
+        let anyo = fechaObj.getFullYear(); 
+        let mes = fechaObj.getMonth() + 1;  
+        let dia = fechaObj.getDate();     
+
+        let mesStr = '' + mes;
+        if (mes < 10) {
+            mesStr = '0' + mes;
+        }
+        let diaStr = '' + dia;
+        if (dia < 10) {
+            diaStr = '0' + dia;
+        }
+
+        if (periodo === "dia") {
+            return anyo + "-" + mesStr + "-" + diaStr;
+        } else if (periodo === "mes") {
+            return anyo + "-" + mesStr;
+        } else if (periodo === "anyo") {
+            return "" + anyo;
+        } else {
+            return "";
+        }
+    }
+}
 
 function listarGastos() {
     return gastos; 
@@ -169,7 +194,7 @@ function calcularBalance(){
 }
 
 function filtrarGastos(){
-
+    
 }
 
 function agruparGastos(){
