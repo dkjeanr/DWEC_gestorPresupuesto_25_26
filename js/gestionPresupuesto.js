@@ -185,25 +185,85 @@ function calcularTotalGastos(){
         }
     }
     return total; 
-
 }
 
 function calcularBalance(){     
-    return presupuesto - calcularTotalGastos();  
-
+    return presupuesto - calcularTotalGastos();
 }
 
-function filtrarGastos(opciones){
+function filtrarGastos(filtros){
+    if (!filtros || typeof filtros !== "object" || Object.keys(filtros).length === 0) {
+        return gastos;
+    }
     
-    let respuesta = .filter(function()){
-        return;
-    };
+    let fechaDesde = null;
+    let fechaHasta = null;
+    if (typeof filtros.fechaDesde === "string") {
+        let fecha = Date.parse(filtros.fechaDesde);
+        if (!isNaN(fecha)) fechaDesde = fecha;
+    }
+    if (typeof filtros.fechaHasta === "string") {
+        let fecha = Date.parse(filtros.fechaHasta);
+        if (!isNaN(fecha)) fechaHasta = fecha;
+    }
 
+    let valorMinimo = null;
+    if (!isNaN(filtros.valorMinimo)) 
+        valorMinimo = Number(filtros.valorMinimo);
 
+    let valorMaximo = null;
+    if (!isNaN(filtros.valorMaximo)) 
+        valorMaximo = Number(filtros.valorMaximo);
+
+    let descripcionContiene = null;
+    if (typeof filtros.descripcionContiene === "string" && filtros.descripcionContiene.length > 0) {
+        descripcionContiene = filtros.descripcionContiene.toLowerCase();
+    }
+
+    let etiquetasReq = null;
+    if (filtros.etiquetasTiene && typeof filtros.etiquetasTiene !== "string" && filtros.etiquetasTiene.length > 0) {
+        etiquetasReq = [];
+        for (let i = 0; i < filtros.etiquetasTiene.length; i++) {
+            let etiqueta = filtros.etiquetasTiene[i];
+            if (typeof etiqueta === "string") etiquetasReq.push(etiqueta.toLowerCase());
+            else etiquetasReq.push(String(etiqueta).toLowerCase());
+        }
+    }
+
+    let resultado = gastos.filter(function(gasto) {
+        if (fechaDesde !== null && gasto.fecha < fechaDesde) 
+            return false;
+        if (fechaHasta !== null && gasto.fecha > fechaHasta) 
+            return false;
+        if (valorMinimo !== null && (isNaN(gasto.valor) || Number(gasto.valor) < valorMinimo)) 
+            return false;
+        if (valorMaximo !== null && (isNaN(gasto.valor) || Number(gasto.valor) > valorMaximo)) 
+            return false;
+
+        if (descripcionContiene !== null) {
+            let descr = (typeof gasto.descripcion === "string") ? gasto.descripcion.toLowerCase() : "";
+            if (descr.indexOf(descripcionContiene) === -1) return false;
+        }
+
+        if (etiquetasReq !== null) {
+            let tiene = false;
+            for (let i = 0; i < etiquetasReq.length && !tiene; i++) {
+                let buscada = etiquetasReq[i];
+                for (let j = 0; j < gasto.etiquetas.length; j++) {
+                    if (buscada === String(gasto.etiquetas[j]).toLowerCase()) {
+                        tiene = true;
+                        break;
+                    }
+                }
+            }
+            if (!tiene) return false;
+        }
+        return true;
+    });
+    return resultado;
 }
 
-function agruparGastos(){
-    
+function agruparGastos(){    
 }
     
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
