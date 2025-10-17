@@ -241,8 +241,9 @@ function filtrarGastos(filtros){
             return false;
 
         if (descripcionContiene !== null) {
-            let descr = (typeof gasto.descripcion === "string") ? gasto.descripcion.toLowerCase() : "";
-            if (descr.indexOf(descripcionContiene) === -1) return false;
+            let descr = (typeof gasto.descripcion === "string") ? gasto.descripcion.toLowerCase() : ""; 
+            if (descr.indexOf(descripcionContiene) === -1) 
+                return false;
         }
 
         if (etiquetasReq !== null) {
@@ -256,14 +257,56 @@ function filtrarGastos(filtros){
                     }
                 }
             }
-            if (!tiene) return false;
+            if (!tiene) 
+                return false;
         }
         return true;
     });
     return resultado;
 }
 
-function agruparGastos(){    
+function agruparGastos(periodo, etiquetas, fechaDesde, fechaHasta) {
+    if (periodo === undefined || periodo === null || periodo === "") {
+        periodo = "mes";
+    }
+
+    let filtro = {};
+
+    if (etiquetas !== undefined && etiquetas !== null && etiquetas instanceof Array && etiquetas.length > 0) {
+        filtro.etiquetasTiene = etiquetas;
+    }
+
+    if (fechaDesde !== undefined && fechaDesde !== null && fechaDesde !== "") {
+        filtro.fechaDesde = fechaDesde;
+    }
+
+    if (fechaHasta !== undefined && fechaHasta !== null && fechaHasta !== "") {
+        filtro.fechaHasta = fechaHasta;
+    } else {
+        filtro.fechaHasta = new Date().toString();
+    }
+
+    let gastosFiltrados = filtrarGastos(filtro);
+
+    let resultado = {};
+
+    for (let i = 0; i < gastosFiltrados.length; i++) {
+        let gasto = gastosFiltrados[i];
+
+        let clave = gasto.obtenerPeriodoAgrupacion(periodo);
+
+        if (resultado[clave] === undefined) {
+            resultado[clave] = 0;
+        }
+
+        let valor = 0;
+        if (gasto.valor !== undefined && gasto.valor !== null && !isNaN(gasto.valor)) {
+            valor = Number(gasto.valor);
+        }
+        resultado[clave] = resultado[clave] + valor;
+    }
+
+    return resultado;
 }
     
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
