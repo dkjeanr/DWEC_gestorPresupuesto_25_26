@@ -1,3 +1,4 @@
-import * as gp from "./gestionPresupuesto"
-import * as gp from "./gestionPresupuestoWeb"
+import * as gP from "./gestionPresupuesto"
+import * as gPW from "./gestionPresupuestoWeb"
+
 
