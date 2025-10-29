@@ -1,8 +1,8 @@
 import * as gP from "./gestionPresupuesto.js"
-import * as gPW from "./gestionPresupuestoWeb.js"
+import * as gPWeb from "./gestionPresupuestoWeb.js"
 
-gp.actualizarPresupuesto(1500);
-gpWeb.mostrarDatoEnId('presupuesto', gp.mostrarPresupuesto());
+gP.actualizarPresupuesto(1500);
+gPWeb.mostrarDatoEnId('presupuesto', gP.mostrarPresupuesto());
 
 // let g1 = new gP.CrearGasto(descripcion,valor, fecha, ...etiquetas);
 
