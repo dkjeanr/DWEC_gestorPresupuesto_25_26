@@ -1,6 +1,5 @@
 "use strict";
 
-import { createElement } from "react";
 
 function mostrarDatoEnId (idElemento,valor){
     let element = document.getElementById(idElemento);
@@ -20,7 +19,7 @@ function mostrarGastoWeb (idElemento, gasto){
         //Creo divPadre y le asigno una clase
     let divGasto = document.createElement('div');
     divGasto.classList.add('gasto');
-    // element.appendChild(divGasto);
+    element.appendChild(divGasto);
 
     //Creo divHijo, le asigno una clase, le asigno texto y lo añado al divPadre
     let divDescripcion = document.createElement('div');
@@ -44,7 +43,7 @@ function mostrarGastoWeb (idElemento, gasto){
     if (gasto.etiquetas && gasto.etiquetas.length > 0) {
         for (let i = 0; i < gasto.etiquetas.length ; i++){
             let spanEtiqueta = document.createElement ('span');
-            spanEtiqueta.classList.add('gasto-etiqueta');
+            spanEtiqueta.classList.add('gasto-etiquetas-etiqueta');
             spanEtiqueta.textContent = gasto.etiquetas[i];
             divEtiquetas.appendChild (spanEtiqueta);
             }
@@ -61,8 +60,10 @@ function mostrarGastosAgrupadosWeb (idElemento,agrup,periodo){
         divAgrupacion.classList.add("agrupacion");
         element.appendChild(divAgrupacion);
 
+        let textoPeriodo = periodo === "dia" ? "día" : (periodo === "anyo" ? "año" : "mes");
+
         let h1Periodo = document.createElement("h1");
-        h1Periodo.textContent = `Gastos agrupados por ${periodo}`;// textpPerodo
+        h1Periodo.textContent = `Gastos agrupados por ${textoPeriodo}`;// textpPerodo
         divAgrupacion.appendChild(h1Periodo);
 
         let claves = Object.keys(agrup);
@@ -75,7 +76,7 @@ function mostrarGastosAgrupadosWeb (idElemento,agrup,periodo){
             divAgrupDato.classList.add("agrupacion-dato");
             divAgrupacion.appendChild(divAgrupDato);
 
-            let spanADClave = createElement("span")
+            let spanADClave = document.createElement("span")
             spanADClave.classList.add("agrupacion-dato-clave");
             spanADClave.textContent = clave;
             divAgrupDato.appendChild(spanADClave);
