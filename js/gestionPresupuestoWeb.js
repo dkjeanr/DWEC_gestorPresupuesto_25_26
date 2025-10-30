@@ -14,6 +14,7 @@ function mostrarGastoWeb (idElemento, gasto){
         //Creo divPadre y le asigno una clase
     let divGasto = document.createElement('div');
     divGasto.classList.add('gasto');
+    element.appendChild(divGasto);
 
     //Creo divHijo, le asigno una clase, le asigno texto y lo añado al divPadre
     let divDescripcion = document.createElement('div');
@@ -29,7 +30,7 @@ function mostrarGastoWeb (idElemento, gasto){
     let divValor = document.createElement('div');
     divValor.classList.add('gasto-valor');
     divValor.textContent = `${gasto.valor} €`;
-    divGasto.appendChild (divdivValor);
+    divGasto.appendChild (divValor);
 
     //Como genero las distintas etiquetas automáticamente?
     
