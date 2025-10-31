@@ -3,20 +3,13 @@
 
 function mostrarDatoEnId (idElemento,valor){
     let element = document.getElementById(idElemento);
-    if(element){
-        element.textContent = String(valor);
-    }
-    else{
-        console.log(`Error: No existe el elemento con id ${idElemento}`);
-    }
+    if(element)
+        element.textContent = String(valor);    
 }
 function mostrarGastoWeb (idElemento, gasto){
     let element = document.getElementById(idElemento);
-    if (!element) {
-        console.log(`Error: No existe el elemento con id ${idElemento}`);
-        return;
-    }
-        //Creo divPadre y le asigno una clase
+
+    //Creo divPadre y le asigno una clase
     let divGasto = document.createElement('div');
     divGasto.classList.add('gasto');
     element.append(divGasto);
@@ -30,16 +23,16 @@ function mostrarGastoWeb (idElemento, gasto){
     let divFecha = document.createElement('div');
     divFecha.classList.add('gasto-fecha');
     divFecha.textContent = gasto.fecha;
-    divGasto.append (divFecha);
+    divGasto.append(divFecha);
 
     let divValor = document.createElement('div');
     divValor.classList.add('gasto-valor');
     divValor.textContent = `${gasto.valor} €`;
-    divGasto.append (divValor);
+    divGasto.append(divValor);
     
     let divEtiquetas = document.createElement('div');
     divEtiquetas.classList.add('gasto-etiquetas');
-    divGasto.append (divEtiquetas);
+    divGasto.append(divEtiquetas);
     if (gasto.etiquetas && gasto.etiquetas.length > 0) {
         for (let i = 0; i < gasto.etiquetas.length ; i++){
             let spanEtiqueta = document.createElement ('span');
@@ -47,8 +40,7 @@ function mostrarGastoWeb (idElemento, gasto){
             spanEtiqueta.textContent = gasto.etiquetas[i];
             divEtiquetas.append (spanEtiqueta);
             }
-    }
-    
+    }    
 }
     
 function mostrarGastosAgrupadosWeb (idElemento,agrup,periodo){
