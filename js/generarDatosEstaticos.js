@@ -24,50 +24,31 @@ gPWeb.mostrarDatoEnId("gastos-totales", gP.calcularTotalGastos());
 gPWeb.mostrarDatoEnId("balance-total", gP.calcularBalance());
 
 let listCompleto = document.getElementById("listado-gastos-completo");
-if (listCompleto)
-    listCompleto.textContent = "";
 let lista = gP.listarGastos();
 for (let i = 0; i < lista.length; i++)
     gPWeb.mostrarGastoWeb("listado-gastos-completo", lista[i]);
 
 let filtr1 = gP.filtrarGastos({ fechaDesde: "2021-09-01", fechaHasta: "2021-09-30" });
-let cont1 = document.getElementById("listado-gastos-filtrado-1");
-if (cont1) 
-    cont1.textContent = "";
 for (let i = 0; i < filtr1.length; i++) 
     gPWeb.mostrarGastoWeb("listado-gastos-filtrado-1", filtr1[i]);
 
 let filtr2 = gP.filtrarGastos({ valorMinimo: 50 });
-let cont2 = document.getElementById("listado-gastos-filtrado-2");
-if (cont2) cont2.textContent = "";
-for (let i = 0; i < filtr2.length; i++) gPWeb.mostrarGastoWeb("listado-gastos-filtrado-2", filtr2[i]);
+for (let i = 0; i < filtr2.length; i++) 
+    gPWeb.mostrarGastoWeb("listado-gastos-filtrado-2", filtr2[i]);
 
 let filtr3 = gP.filtrarGastos({ valorMinimo: 200, etiquetasTiene: ["seguros"] });
-let cont3 = document.getElementById("listado-gastos-filtrado-3");
-if (cont3) cont3.textContent = "";
-for (let i = 0; i < filtr3.length; i++) gPWeb.mostrarGastoWeb("listado-gastos-filtrado-3", filtr3[i]);
+for (let i = 0; i < filtr3.length; i++) 
+    gPWeb.mostrarGastoWeb("listado-gastos-filtrado-3", filtr3[i]);
 
 let filtr4 = gP.filtrarGastos({ etiquetasTiene: ["comida", "transporte"], valorMaximo: 50 });
-let cont4 = document.getElementById("listado-gastos-filtrado-4");
-if (cont4) 
-    cont4.textContent = "";
 for (let i = 0; i < filtr4.length; i++) 
     gPWeb.mostrarGastoWeb("listado-gastos-filtrado-4", filtr4[i]);
 
 let agrupDia = gP.agruparGastos("dia");
-let contAgrDia = document.getElementById("agrupacion-dia");
-if (contAgrDia) 
-    contAgrDia.textContent = "";
 gPWeb.mostrarGastosAgrupadosWeb("agrupacion-dia", agrupDia, "dia");
 
 let agrupMes = gP.agruparGastos("mes");
-let contAgrMes = document.getElementById("agrupacion-mes");
-if (contAgrMes) 
-    contAgrMes.textContent = "";
 gPWeb.mostrarGastosAgrupadosWeb("agrupacion-mes", agrupMes, "mes");
 
 let agrupAnyo = gP.agruparGastos("anyo");
-let contAgrAnyo = document.getElementById("agrupacion-anyo");
-if (contAgrAnyo) 
-    contAgrAnyo.textContent = "";
 gPWeb.mostrarGastosAgrupadosWeb("agrupacion-anyo", agrupAnyo, "anyo");
