@@ -80,7 +80,14 @@ function mostrarGastosAgrupadosWeb (idElemento,agrup,periodo){
 } 
 
 function repintar(){
-    
+    mostrarDatoEnId('presupuesto', gP.mostrarPresupuesto());
+    mostrarDatoEnId("gastos-totales", gP.calcularTotalGastos());
+    mostrarDatoEnId("balance-total", gP.calcularBalance());
+    let listadoCompleto = document.getElementById("listado-gastos-completo");
+    let lista = gp.listarGastos();
+        for (let i = 0; i< lista.length; i++)
+            mostrarGastoWeb("listado-gastos-completo", lista[i]);
+
 }
 
 export{
