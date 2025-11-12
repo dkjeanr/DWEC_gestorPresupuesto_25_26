@@ -89,8 +89,17 @@ function repintar(){
     let lista = gp.listarGastos();
         for (let i = 0; i< lista.length; i++)
             mostrarGastoWeb("listado-gastos-completo", lista[i]);        
-
 }
+
+function actualizarPresupuestoWeb(){
+    let pedirNPresupuesto = prompt("Introduzca un nuevo presupuesto");
+    pedirNPresupuesto = Number(pedirNPresupuesto);
+    gp.actualizarPresupuesto(pedirNPresupuesto);
+    repintar();
+}
+
+let boton = document.getElementById("actualizarpresupuesto");
+boton.addEventListener('click',actualizarPresupuestoWeb);
 
 export{
     mostrarDatoEnId,
