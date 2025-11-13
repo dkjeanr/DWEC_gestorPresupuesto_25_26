@@ -80,12 +80,12 @@ function mostrarGastosAgrupadosWeb (idElemento,agrup,periodo){
 } 
 
 function repintar(){
-    mostrarDatoEnId('presupuesto', gP.mostrarPresupuesto());
-    mostrarDatoEnId("gastos-totales", gP.calcularTotalGastos());
-    mostrarDatoEnId("balance-total", gP.calcularBalance());
+    mostrarDatoEnId('presupuesto', gp.mostrarPresupuesto());
+    mostrarDatoEnId("gastos-totales", gp.calcularTotalGastos());
+    mostrarDatoEnId("balance-total", gp.calcularBalance());
     let listadoCompleto = document.getElementById("listado-gastos-completo");
     if(listadoCompleto)
-        listadoCompleto= "";
+        listadoCompleto.innerHTML= "";// no tenia innerHTML
     let lista = gp.listarGastos();
         for (let i = 0; i< lista.length; i++)
             mostrarGastoWeb("listado-gastos-completo", lista[i]);        
@@ -100,6 +100,25 @@ function actualizarPresupuestoWeb(){
 
 let boton = document.getElementById("actualizarpresupuesto");
 boton.addEventListener('click',actualizarPresupuestoWeb);
+
+function nuevoGastoWeb(){
+    debugger;
+    let nuevaDescripcion = prompt("Introduzca la descripcion:");
+    let nuevoValor = Number(prompt("Introduzca el valor:"));//Poniendo Numbre delante se guarda un número
+    // let nuevoValor = +prompt("Introduzca el valor:"); el + lo convierte a numero
+    let nuevaFecha = prompt("Introduzca la fecha con el siguiente formato yyyy-mm-dd:");
+    // do{
+    //     let nuevaFecha = prompt("Introduzca la fecha con el siguiente formato yyyy-mm-dd:");        
+    // }while(isNaN(Date.parsen(nuevaFecha)))
+    let nuevasEqtiquetas = prompt("Introduzca las etiquetas separadas por comas:");
+    
+    let nuevoGasto = new gp.CrearGasto(nuevaDescripcion, nuevoValor, nuevaFecha, ...nuevasEqtiquetas.split(','))
+    gp.anyadirGasto(nuevoGasto);
+    repintar();
+}
+
+let btnNueboGasto = document.getElementById("anyadirgasto");
+btnNueboGasto.addEventListener('click',nuevoGastoWeb);
 
 export{
     mostrarDatoEnId,
