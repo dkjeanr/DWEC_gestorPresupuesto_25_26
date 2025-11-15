@@ -32,21 +32,6 @@ function CrearGasto(descripcion,valor, fecha, ...etiquetas) {
 
     this.etiquetas = [];
 
-    for (let i = 0; i < etiquetas.length; i++) {
-    let etiqueta = etiquetas[i];
-    let existe = false;
-
-    for (let j = 0; j < this.etiquetas.length; j++) {
-        if (this.etiquetas[j] === etiqueta) {
-            existe = true;
-        }
-    }
-
-    if (!existe && typeof etiqueta === "string") {
-        this.etiquetas.push(etiqueta);
-    }
-}
-
     this.anyadirEtiquetas = function(...nuevasEtiquetas) {
         for (let i = 0; i < nuevasEtiquetas.length; i++) {
         let etiqueta = nuevasEtiquetas[i];
@@ -63,6 +48,8 @@ function CrearGasto(descripcion,valor, fecha, ...etiquetas) {
         }
     }        
     }
+    //añado las etiquetas iniciales, remplaza el bloque que añadia las etiquetas iniciales  
+    this.anyadirEtiquetas(...etiquetas);
 
     if (fecha === undefined){
         this.fecha = Date.now();
@@ -74,8 +61,7 @@ function CrearGasto(descripcion,valor, fecha, ...etiquetas) {
         } else{
             this.fecha = Date.now();
         }
-    }
- 
+    } 
 
     this.mostrarGasto = function(){
         return `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €`;
@@ -108,24 +94,17 @@ function CrearGasto(descripcion,valor, fecha, ...etiquetas) {
         }
     }
     
-    this.borrarEtiquetas = function(...etiquetasABorrar) {
-    let nuevasEtiquetas = [];
 
-    for (let i = 0; i < this.etiquetas.length; i++) {
-        let agregar = true;
-
-        for (let j = 0; j < etiquetasABorrar.length; j++) {
-            if (this.etiquetas[i] === etiquetasABorrar[j]) {
-                agregar = false; 
-            }
-        }
-
-        if (agregar) {
-            nuevasEtiquetas.push(this.etiquetas[i]);
-        }
-        }
-    this.etiquetas = nuevasEtiquetas;
+    //llamo a .filter() sobre la lista original. Crea una lista temporal.
+    //por cada etiqueta compruebo que no esté incluida en etiquetasABorrar
+    //si no la incluye la guarda en la lista temporal
+    //al final guarda la lista temporal en la lista original this.etiquetas
+    //no necesito {return} ya que solo hay 1 instrucnion en la funcion =>
+    this.borrarEtiquetas = function(...etiquetasABorrar) {    
+    this.etiquetas = this.etiquetas.filter(etiqueta =>
+        !etiquetasABorrar.includes(etiqueta));
     }
+
     this.obtenerPeriodoAgrupacion = function(periodo) {
         let fechaObj = new Date(this.fecha);
 
@@ -160,29 +139,24 @@ function listarGastos() {
 
 function anyadirGasto(gasto){
     gasto.id = idGasto;
-    idGasto = idGasto + 1;
+    idGasto ++;
     gastos.push(gasto);
 }
 
+//por cada gasto si el gasto.id es distinto al id a borrar
+//se guarda en la lista temporal 
+//al terminar de recorrer la lista se guarda en la lista original
+//Se puede usar IndexOf y splice pero es mas largo y complicado
 function borrarGasto(id){
-    let nuevosGastos = []; 
-
-    for (let i = 0; i < gastos.length; i++) {
-        if (gastos[i].id !== id) {
-            nuevosGastos.push(gastos[i]);
-        }
-    }
-    gastos = nuevosGastos;
+    gastos = gastos.filter(gasto => gasto.id !== id)
 }
 
+//Las comprobaciones son redundantes ya que se comprueba en la funcion constructora CrearGasto()
 function calcularTotalGastos(){
     let total = 0; 
         
     for (let i = 0; i < gastos.length; i++) {
-        let g = gastos[i];        
-        if (g && !isNaN(g.valor)) {
-            total = total + g.valor; 
-        }
+        total += gastos[i].valor;        
     }
     return total; 
 }

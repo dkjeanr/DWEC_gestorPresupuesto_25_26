@@ -120,6 +120,10 @@ function nuevoGastoWeb(){
 let btnNueboGasto = document.getElementById("anyadirgasto");
 btnNueboGasto.addEventListener('click',nuevoGastoWeb);
 
+function EditarHandle(){
+    
+    repintar()
+}
 export{
     mostrarDatoEnId,
     mostrarGastoWeb,
