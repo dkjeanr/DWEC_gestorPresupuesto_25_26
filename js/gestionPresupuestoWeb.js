@@ -40,7 +40,11 @@ function mostrarGastoWeb (idElemento, gasto){
             spanEtiqueta.textContent = gasto.etiquetas[i];
             divEtiquetas.append (spanEtiqueta);
             }
-    }    
+    }   
+    let botonEd = document.createElement("button");
+    botonEd.type = "button";
+    let objEdit = new EditarHandle();
+    let objEdit.gasto= gasto; 
 }
     
 function mostrarGastosAgrupadosWeb (idElemento,agrup,periodo){
@@ -121,7 +125,13 @@ let btnNueboGasto = document.getElementById("anyadirgasto");
 btnNueboGasto.addEventListener('click',nuevoGastoWeb);
 
 function EditarHandle(){
-    
+    this.handleEvent = function(){
+        let nPre = prompt("Presupuesto", this.gasto.presupuesto);
+        this.gasto.actualizarPresupuesto(nPre);
+        let nVal = +prompt("Valor",this.gasto.valor);
+        this.gasto.actualizarValor(nPre);
+
+    }
     repintar()
 }
 export{
