@@ -177,6 +177,7 @@ function BorrarEtiquetasHandle(){
         
         this.gasto.borrarEtiquetas(this.etiqueta);
         repintar();
+        
     }
 }
 
