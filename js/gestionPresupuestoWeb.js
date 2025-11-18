@@ -43,8 +43,12 @@ function mostrarGastoWeb (idElemento, gasto){
     }   
     let botonEd = document.createElement("button");
     botonEd.type = "button";
+    botonEd.textContent = "Editar";
+
     let objEdit = new EditarHandle();
-    let objEdit.gasto= gasto; 
+    objEdit.gasto= gasto; 
+    botonEd.addEventListener("click", objEdit);
+    divGasto.append(botonEd);
 }
     
 function mostrarGastosAgrupadosWeb (idElemento,agrup,periodo){
@@ -125,14 +129,24 @@ let btnNueboGasto = document.getElementById("anyadirgasto");
 btnNueboGasto.addEventListener('click',nuevoGastoWeb);
 
 function EditarHandle(){
-    this.handleEvent = function(){
-        let nPre = prompt("Presupuesto", this.gasto.presupuesto);
-        this.gasto.actualizarPresupuesto(nPre);
-        let nVal = +prompt("Valor",this.gasto.valor);
-        this.gasto.actualizarValor(nPre);
+    this.handleEvent = function(evento){
+        let nDesc = prompt("Nueva descripción:", this.gasto.descripcion);
+        this.gasto.actualizarDescripcion(nDesc);
 
-    }
-    repintar()
+        let nVal = +prompt("Valor",this.gasto.valor);
+        this.gasto.actualizarValor(nVal);
+
+        //el método obtenerPeriodoAgrupacion nos da la fecha en el formato internacional
+        let nFec = prompt("Fecha",this.gasto.obtenerPeriodoAgrupacion("dia"));
+        this.gasto.actualizarFecha(nFec);
+
+        let nEti = prompt("Etiquetas", this.gasto.etiquetas.join(','));
+        this.gasto.borrarEtiquetas(...this.gasto.etiquetas);
+        nEti = nEti.split(',');
+        this.gasto.anyadirEtiquetas(...nEti);
+
+        repintar();
+    }    
 }
 export{
     mostrarDatoEnId,
