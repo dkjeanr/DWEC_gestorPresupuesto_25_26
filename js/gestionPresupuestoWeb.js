@@ -39,6 +39,12 @@ function mostrarGastoWeb (idElemento, gasto){
             let spanEtiqueta = document.createElement ('span');
             spanEtiqueta.classList.add('gasto-etiquetas-etiqueta');
             spanEtiqueta.textContent = gasto.etiquetas[i];
+
+            let objBorEti = new BorrarEtiquetasHandle();
+            objBorEti.gasto = gasto;
+            objBorEti.etiqueta = gasto.etiquetas[i];
+            spanEtiqueta.addEventListener("click",objBorEti)
+
             divEtiquetas.append (spanEtiqueta);
             }
     }   
@@ -61,6 +67,7 @@ function mostrarGastoWeb (idElemento, gasto){
     objBor.gasto = gasto;
     botonBo.addEventListener("click", objBor);
     divGasto.append(botonBo);
+   
 }
     
 function mostrarGastosAgrupadosWeb (idElemento,agrup,periodo){
@@ -127,9 +134,6 @@ function nuevoGastoWeb(){
     let nuevoValor = Number(prompt("Introduzca el valor:"));//Poniendo Numbre delante se guarda un número
     // let nuevoValor = +prompt("Introduzca el valor:"); el + lo convierte a numero
     let nuevaFecha = prompt("Introduzca la fecha con el siguiente formato yyyy-mm-dd:");
-    // do{
-    //     let nuevaFecha = prompt("Introduzca la fecha con el siguiente formato yyyy-mm-dd:");        
-    // }while(isNaN(Date.parsen(nuevaFecha)))
     let nuevasEqtiquetas = prompt("Introduzca las etiquetas separadas por comas:");
     
     let nuevoGasto = new gp.CrearGasto(nuevaDescripcion, nuevoValor, nuevaFecha, ...nuevasEqtiquetas.split(','))
@@ -165,6 +169,13 @@ function BorrarHandle(){
     this.handleEvent= function(evento){
        gp.borrarGasto(this.gasto.id); 
        repintar(); 
+    }
+}
+function BorrarEtiquetasHandle(){
+    this.handleEvent= function(event){
+        
+        this.gasto.borrarEtiquetas(this.etiqueta);
+        repintar();
     }
 }
 export{
