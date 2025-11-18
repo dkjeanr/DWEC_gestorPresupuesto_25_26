@@ -22,12 +22,13 @@ function mostrarGastoWeb (idElemento, gasto){
 
     let divFecha = document.createElement('div');
     divFecha.classList.add('gasto-fecha');
-    divFecha.textContent = gasto.fecha;
+    //Cambiamos gasto.fecha, el resultado no es en formato internacional 
+    divFecha.textContent = gasto.obtenerPeriodoAgrupacion("dia");
     divGasto.append(divFecha);
 
     let divValor = document.createElement('div');
     divValor.classList.add('gasto-valor');
-    divValor.textContent = `${gasto.valor} €`;
+    divValor.textContent = gasto.valor;
     divGasto.append(divValor);
     
     let divEtiquetas = document.createElement('div');
@@ -44,11 +45,22 @@ function mostrarGastoWeb (idElemento, gasto){
     let botonEd = document.createElement("button");
     botonEd.type = "button";
     botonEd.textContent = "Editar";
+    botonEd.classList.add("gasto-editar");
 
     let objEdit = new EditarHandle();
     objEdit.gasto= gasto; 
     botonEd.addEventListener("click", objEdit);
     divGasto.append(botonEd);
+
+    let botonBo = document.createElement("button");
+    botonBo.type = "button";
+    botonBo.textContent = "Borrar"
+    botonBo.classList.add("gasto-borrar");
+
+    let objBor = new BorrarHandle();
+    objBor.gasto = gasto;
+    botonBo.addEventListener("click", objBor);
+    divGasto.append(botonBo);
 }
     
 function mostrarGastosAgrupadosWeb (idElemento,agrup,periodo){
@@ -147,6 +159,13 @@ function EditarHandle(){
 
         repintar();
     }    
+}
+
+function BorrarHandle(){
+    this.handleEvent= function(evento){
+       gp.borrarGasto(this.gasto.id); 
+       repintar(); 
+    }
 }
 export{
     mostrarDatoEnId,
