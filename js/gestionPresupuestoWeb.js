@@ -171,6 +171,7 @@ function BorrarHandle(){
        repintar(); 
     }
 }
+
 function BorrarEtiquetasHandle(){
     this.handleEvent= function(event){
         
@@ -178,6 +179,7 @@ function BorrarEtiquetasHandle(){
         repintar();
     }
 }
+
 export{
     mostrarDatoEnId,
     mostrarGastoWeb,
